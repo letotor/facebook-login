@@ -1,0 +1,23 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 200px;
+   
+    /* padding: 200px; */
+    border:1px solid red;
+    /* height:800px; */
+}
+
+img{
+    height: 200px;
+    border : 1px solid blue;
+}
+
+.box1,.box2{
+    border:1px solid green;
+}
+
+.box1{
+    width:75%;
+}
