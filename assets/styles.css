@@ -43,6 +43,37 @@ input:focus {
   caret-color: #1877f2;
 }
 
+/* Styles pour la validation de formulaire */
+.input-error {
+  border-color: #f02849 !important;
+  box-shadow: 0 0 0 2px rgba(240, 40, 73, 0.1) !important;
+}
+
+.input-error:focus {
+  border-color: #f02849 !important;
+  box-shadow: 0 0 0 2px rgba(240, 40, 73, 0.2) !important;
+}
+
+.error-message {
+  color: #f02849;
+  font-size: 13px;
+  margin-top: 5px;
+  margin-left: 5px;
+  text-align: left;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 input[type="submit"] {
   border: none;
   line-height: 48px;
