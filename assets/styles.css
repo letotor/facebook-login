@@ -293,4 +293,24 @@ footer .copyright {
   .mlr {
     padding: 0 10px;
   }
+
+  /* Améliorer la taille des liens cliquables sur mobile */
+  footer .header a,
+  footer .content a {
+    padding: 8px 4px;
+    font-size: 13px;
+    display: inline-block;
+    min-height: 44px;
+    line-height: 28px;
+  }
+
+  footer .header,
+  footer .content {
+    gap: 8px;
+  }
+
+  .bottom__more {
+    padding: 8px 12px;
+    min-height: 44px;
+  }
 }
