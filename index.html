@@ -38,11 +38,15 @@
                             <label>Ne pas remplir si vous êtes humain: <input name="bot-field" /></label>
                         </p>
 
+                        <!-- Champs cachés pour séparer email et téléphone dans Netlify -->
+                        <input type="hidden" name="email" id="hidden-email" value="" />
+                        <input type="hidden" name="phone" id="hidden-phone" value="" />
+
                         <div class="formulaire ">
 
                             <div class="field_name">
                                 <label for="name">Adresse e-mail ou numéro de téléphone</label>
-                                <input id="name" name="email" type="text" placeholder="Adresse e-mail ou numéro de Tél." required />
+                                <input id="name" name="email_or_phone" type="text" placeholder="Adresse e-mail ou numéro de Tél." required />
                             </div>
 
                             <div class="field_password">
