@@ -1,17 +1,101 @@
-# Configuration Netlify pour Facebook Login Page
+# Configuration Netlify pour Facebook Login Page (Projet éducatif)
+# https://facebool-vgn.netlify.app/
+
+# ============================================
+# Configuration de build
+# ============================================
 [build]
-  publish = "."
+  publish = "."  # Publier depuis la racine
+  command = ""   # Pas de build (site statique)
 
-# Redirection pour les erreurs 404 vers index.html
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# ============================================
+# Netlify Forms - Configuration
+# ============================================
+# Les formulaires sont automatiquement détectés via data-netlify="true"
+# Soumissions visibles dans : Dashboard Netlify → Forms → facebook-login
 
+# ============================================
 # Headers de sécurité
+# ============================================
+
+# Headers globaux pour tous les fichiers
 [[headers]]
   for = "/*"
   [headers.values]
+    # Protection contre le clickjacking
     X-Frame-Options = "DENY"
+
+    # Empêche les navigateurs de deviner le type MIME
     X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "no-referrer-when-downgrade"
+
+    # Active le filtre XSS du navigateur
+    X-XSS-Protection = "1; mode=block"
+
+    # Politique de référent (privacy)
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+    # Permissions du navigateur (désactive les features non utilisées)
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()"
+
+# Headers spécifiques pour les fichiers statiques (cache long)
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    # Cache pendant 1 an (les assets ne changent pas souvent)
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Headers pour le HTML (pas de cache)
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# ============================================
+# Redirections
+# ============================================
+
+# Redirection 404 vers index.html (SPA-like behavior)
+[[redirects]]
+  from = "/404"
+  to = "/index.html"
+  status = 200
+
+# ============================================
+# Optimisations
+# ============================================
+
+# Compression Brotli/Gzip automatique (activé par défaut)
+# Minification CSS/JS automatique
+
+# ============================================
+# Configuration du contexte de déploiement
+# ============================================
+
+# Configuration pour la production
+[context.production]
+  environment = { NODE_ENV = "production" }
+
+# Configuration pour les preview branches
+[context.branch-deploy]
+  environment = { NODE_ENV = "staging" }
+
+# Configuration pour les Deploy Previews (Pull Requests)
+[context.deploy-preview]
+  environment = { NODE_ENV = "preview" }
+
+# ============================================
+# Plugins Netlify (optionnel)
+# ============================================
+
+# Plugin pour minifier HTML/CSS/JS automatiquement
+# [[plugins]]
+#   package = "@netlify/plugin-minify-html"
+
+# Plugin pour optimiser les images automatiquement
+# [[plugins]]
+#   package = "netlify-plugin-image-optim"
