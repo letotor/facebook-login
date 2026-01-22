@@ -1,0 +1,17 @@
+# Configuration Netlify pour Facebook Login Page
+[build]
+  publish = "."
+
+# Redirection pour les erreurs 404 vers index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers de sécurité
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer-when-downgrade"
